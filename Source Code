@@ -1,1 +1,63 @@
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) {
+        Scanner scnr = new Scanner(System.in);
+        boolean valid = false;
+        String password;
+       
+
+        do {
+            System.out.print("Please enter a password: ");
+            password = scnr.nextLine();
+
+           //Loop visualized: do{if{} for{} if{}else{}}while(!valid)
+            if (password.length() < 8 || password.length() > 16) {
+                System.out.println("Password must have at least 8 and at most 16 characters.");
+                continue; 
+            }
+
+            
+            int lowercaseCounter = 0;
+            int uppercaseCounter = 0;
+            int digitCounter = 0;
+            int specialSymbolsCounter = 0;
+/*The password's length is between 8 and 16 (inclusive)
+
+2. The password must be a combination of at least three out of the following four categories:
+
+(1) lower case letters, i.e., a-z
+
+(2) upper case letters, i.e., A-Z
+
+(3) numbers, i.e., 0-9
+
+(4) the following special symbols: ~!@#$%^&*()-=+_
+
+ */
+            
+            for (char c : password.toCharArray()) {
+                if (Character.isLowerCase(c)) {
+                    lowercaseCounter++;
+                } else if (Character.isUpperCase(c)) {
+                    uppercaseCounter++;
+                } else if (Character.isDigit(c)) {
+                    digitCounter++;
+                } else if ("~!@#$%^&*()-=+_".contains(String.valueOf(c))) {
+                    specialSymbolsCounter++;
+                }
+            }
+
+            // Check if three out of four categories are satisfied
+            if (lowercaseCounter >= 1 && uppercaseCounter >= 1 && digitCounter >= 1 && specialSymbolsCounter >= 1) {
+                valid = true;
+            } else {
+System.out.println("Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special symbol.");
+            } 
+        } while (!valid);
+
+        System.out.println("Password accepted!");
+        scnr.close();
+    }
+}
 
